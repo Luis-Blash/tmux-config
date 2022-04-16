@@ -13,6 +13,12 @@ def tipoSesiones(tipo):
     write("code .")
     press('enter')
 
+def mongoBase():
+    mongo = input("Usaras mongo? [s / n]").lower()
+    if mongo == 's':
+        write("mongodb-compass </dev/null &>/dev/null &")
+        press('enter')
+
 def configuracionSesion(tipo):
     if(tipo == TIPOSDESESIONES[0]):
         write("tmux split-window -v")
@@ -29,17 +35,16 @@ def configuracionSesion(tipo):
         press('enter')
         write("postman </dev/null &>/dev/null &")
         press('enter')
-        mongo = input("Usaras mongo? [s / n]").lower()
-        if mongo == 's':
-            write("mongodb-compass </dev/null &>/dev/null &")
-            press('enter')
         write("nodemon app")
         press('enter')
 
 
 def main():
+    print(f"Sessiones {TIPOSDESESIONES}")
     sesion = input("Que sesión\n").lower()
     if sesion in TIPOSDESESIONES:
+        if sesion == TIPOSDESESIONES[2]:
+            mongoBase()
         tipoSesiones(sesion)
         configuracionSesion(sesion)
     else:
